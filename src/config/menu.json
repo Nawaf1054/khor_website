@@ -1,0 +1,69 @@
+{
+  "currency": "SR",
+  "sections": [
+    {
+      "en": "HOT DRINKS",
+      "ar": "المشروبات الساخنة",
+      "items": [
+        {
+          "ar": "قهوة اليوم",
+          "en": "Today's Coffee",
+          "prices": [
+            { "label": "Small", "value": "10" },
+            { "label": "Big", "value": "12" }
+          ]
+        },
+        { "ar": "اسبريسو", "en": "Espresso", "price": "13" },
+        { "ar": "كورتادو", "en": "Cortado", "price": "13" },
+        { "ar": "فلات وايت", "en": "Flat White", "price": "15" },
+        { "ar": "امريكانو", "en": "Americano", "price": "13" },
+        { "ar": "كابتشينو", "en": "Cappuccino", "price": "15" },
+        { "ar": "لاتيه", "en": "Latte", "price": "15" },
+        { "ar": "سبانيش لاتيه", "en": "Spanish Latte", "price": "17" },
+        { "ar": "هوت شوكليت", "en": "Hot Chocolate", "price": "18" },
+        {
+          "ar": "V60",
+          "en": "V60",
+          "prices": [
+            { "label": "Hot", "value": "16" },
+            { "label": "Cold", "value": "18" }
+          ]
+        },
+        {
+          "ar": "V60 فاخر",
+          "en": "V60 Luxury",
+          "prices": [
+            { "label": "Hot", "value": "18" },
+            { "label": "Cold", "value": "20" }
+          ]
+        }
+      ]
+    },
+    {
+      "en": "COLD DRINKS",
+      "ar": "المشروبات الباردة",
+      "items": [
+        { "ar": "ايس امريكانو", "en": "Ice Americano", "price": "14" },
+        { "ar": "ايس لاتيه", "en": "Iced Latte", "price": "18" },
+        { "ar": "سبانيش لاتيه", "en": "Spanish Latte", "price": "19" },
+        { "ar": "اسبريسو فريدو", "en": "Espresso Freddo", "price": "13" },
+        { "ar": "كركديه", "en": "Hibiscus", "price": "16" },
+        {
+          "ar": "ايس تي (خوخ أو باشن فروت)",
+          "en": "Ice Tea (peach or passion fruit)",
+          "price": "18"
+        }
+      ]
+    },
+    {
+      "en": "BREAKFAST",
+      "ar": "الفطور",
+      "items": [
+        { "ar": "دجاج البيستو", "en": "Pesto Chicken", "price": "16" },
+        { "ar": "كلوب ساندوتش", "en": "Club Sandwich", "price": "13" },
+        { "ar": "تونة", "en": "Tuna", "price": "16" },
+        { "ar": "حلوم", "en": "Halloumi", "price": "18" }
+      ]
+    }
+  ]
+}

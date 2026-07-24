@@ -1,0 +1,17 @@
+---
+// The oxblood-tinted rounded square that sits behind every icon in the design.
+// 46px / radius 12 everywhere except the socials card, which is 50px / radius 14.
+interface Props {
+  size?: number;
+  radius?: number;
+}
+
+const { size = 46, radius = 12 } = Astro.props;
+---
+
+<span
+  class="flex shrink-0 items-center justify-center bg-oxblood/28"
+  style={`width:${size}px; height:${size}px; border-radius:${radius}px;`}
+>
+  <slot />
+</span>

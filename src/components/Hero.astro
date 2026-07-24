@@ -1,0 +1,87 @@
+---
+import brand from "../config/brand.json";
+---
+
+<section
+  id="top"
+  class="relative flex min-h-[560px] w-full items-center justify-center overflow-hidden bg-bg-deep"
+>
+  <video
+    id="khorVideo"
+    src="/khor-video.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-hidden="true"
+    tabindex="-1"
+    class="absolute inset-0 size-full scale-105 object-cover blur-[2px] brightness-[0.82]"></video>
+
+  <div class="scrim absolute inset-0"></div>
+
+  <div class="relative z-2 px-4 text-center">
+    <div class="brand font-kufi font-bold tracking-[2px]">{brand.name}</div>
+    <div class="tagline font-kufi font-medium tracking-[2px]">
+      {brand.tagline}
+    </div>
+  </div>
+
+  <div
+    class="absolute bottom-[26px] start-0 end-0 z-2 text-center font-lat text-sm tracking-[3px] text-cream/85"
+    dir="ltr"
+    aria-hidden="true"
+  >
+    SCROLL ↓
+  </div>
+</section>
+
+<style>
+  section {
+    height: 96vh;
+    height: 96svh;
+  }
+
+  .scrim {
+    background: linear-gradient(
+      180deg,
+      rgb(47 54 32 / 0.32) 0%,
+      rgb(47 54 32 / 0.08) 45%,
+      rgb(59 69 38 / 0.94) 100%
+    );
+  }
+
+  .brand {
+    font-size: clamp(90px, 18vw, 220px);
+    line-height: 0.9;
+    text-shadow: 0 8px 40px rgb(0 0 0 / 0.5);
+  }
+
+  .tagline {
+    font-size: clamp(20px, 3.2vw, 34px);
+    text-shadow: 0 4px 24px rgb(0 0 0 / 0.5);
+    /* The design specifies an 8px gap, but Reem Kufi's ر descender overflows the
+       0.9 line box by ~0.114em, so 8px collides with the wordmark. This is the same
+       8px gap measured from the ink instead of the box, on the brand's clamp curve. */
+    margin-top: clamp(13px, 2.7vw, 33px);
+  }
+</style>
+
+<script>
+  // The autoplay attribute alone is not reliable — browsers routinely load the video,
+  // paint a frame and leave it paused, which looks identical to working playback.
+  // The design's own runtime kicks play() for the same reason; this ports that.
+  const video = document.getElementById("khorVideo") as HTMLVideoElement | null;
+
+  if (video) {
+    const play = () => {
+      video.muted = true;
+      video.play().catch(() => {
+        // Genuinely blocked (e.g. iOS Low Power Mode). The first frame still shows.
+      });
+    };
+
+    play();
+    // Some browsers only permit playback once enough data has buffered.
+    video.addEventListener("canplay", play, { once: true });
+  }
+</script>

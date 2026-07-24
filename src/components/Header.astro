@@ -1,0 +1,76 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/khor-logo.png";
+import brand from "../config/brand.json";
+
+const links = [
+  { href: "#menu", label: "القائمة" },
+  { href: "#locations", label: "المواقع" },
+  { href: "#contact", label: "تواصل" },
+  { href: "#socials", label: "السوشيال" },
+];
+---
+
+<header
+  id="khorHeader"
+  class="fixed start-0 end-0 top-0 z-50 flex items-center justify-between gap-3 border-b border-transparent px-4 py-4 transition-[background-color,backdrop-filter,border-color,padding] duration-[250ms] ease-out sm:gap-6 sm:px-7"
+>
+  <a href="#top" class="flex shrink-0 items-center gap-2 sm:gap-3">
+    <Image
+      src={logo}
+      alt={brand.name}
+      width={88}
+      height={88}
+      class="size-11 rounded-full"
+      loading="eager"
+    />
+    <!-- Hidden on phones so all four nav links fit without clipping; the hero
+         repeats the wordmark at full size immediately below. -->
+    <span class="hidden font-kufi text-2xl font-bold tracking-[1px] sm:block">
+      {brand.name}
+    </span>
+  </a>
+
+  <nav class="no-scrollbar flex items-center gap-0.5 overflow-x-auto sm:gap-1.5">
+    {
+      links.map(({ href, label }) => (
+        <a
+          href={href}
+          class="rounded-full px-2.5 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-150 hover:bg-cream/10 sm:px-4 sm:text-base"
+        >
+          {label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<style>
+  /* Scrolled state — toggled by class so CSS owns the transition. */
+  header.is-scrolled {
+    background-color: rgb(47 54 32 / 0.72);
+    backdrop-filter: blur(16px);
+    border-bottom-color: var(--color-edge);
+    padding-block: 12px;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  const header = document.getElementById("khorHeader");
+
+  if (header) {
+    const onScroll = () =>
+      header.classList.toggle("is-scrolled", window.scrollY > 40);
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+</script>

@@ -1,0 +1,50 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import Card from "./Card.astro";
+import IconTile from "./IconTile.astro";
+import Icon from "./Icon.astro";
+import brand from "../config/brand.json";
+
+const channels = [
+  {
+    href: `tel:${brand.phone}`,
+    icon: "phone" as const,
+    label: "اتصل بنا",
+  },
+  {
+    href: `https://wa.me/${brand.whatsapp}`,
+    icon: "whatsapp" as const,
+    label: "واتساب",
+  },
+];
+---
+
+<section
+  id="contact"
+  class="mx-auto max-w-[900px] scroll-mt-[76px] px-5 pt-14 pb-6 sm:px-7 sm:pt-[88px] sm:pb-10"
+>
+  <div class="mb-8 sm:mb-10">
+    <SectionHeading kicker="Contact" title="تواصل معنا" />
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    {
+      channels.map(({ href, icon, label }) => (
+        <Card href={href} class="flex items-center gap-4 p-6 sm:gap-[18px] sm:p-7">
+          <IconTile>
+            <Icon name={icon} />
+          </IconTile>
+          <div class="min-w-0">
+            <div class="font-ar text-xl font-bold">{label}</div>
+            <div
+              class="font-lat text-xl tracking-[1px] text-highlight"
+              dir="ltr"
+            >
+              {brand.phoneDisplay}
+            </div>
+          </div>
+        </Card>
+      ))
+    }
+  </div>
+</section>

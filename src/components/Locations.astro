@@ -1,0 +1,40 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import Card from "./Card.astro";
+import IconTile from "./IconTile.astro";
+import Icon from "./Icon.astro";
+import brand from "../config/brand.json";
+---
+
+<section
+  id="locations"
+  class="mx-auto max-w-[900px] scroll-mt-[76px] px-5 pt-14 pb-6 sm:px-7 sm:pt-[88px] sm:pb-10"
+>
+  <div class="mb-8 sm:mb-10">
+    <SectionHeading kicker="Location" title="المواقع" />
+  </div>
+
+  <div class="grid gap-5 md:grid-cols-2">
+    <Card href={brand.mapUrl} class="flex flex-col gap-3.5 p-6 sm:p-7">
+      <IconTile><Icon name="pin" /></IconTile>
+      <div class="font-ar text-[22px] font-bold">{brand.branchLabel}</div>
+      <div class="text-[15px] leading-[1.6] text-cream/65">
+        {brand.branchHint}
+      </div>
+      <div
+        class="mt-auto inline-flex items-center gap-1.5 font-lat text-[15px] font-medium text-highlight"
+      >
+        افتح الخريطة ←
+      </div>
+    </Card>
+
+    <Card class="flex flex-col gap-3.5 p-6 sm:p-7">
+      <IconTile><Icon name="clock" /></IconTile>
+      <div class="font-ar text-[22px] font-bold">ساعات العمل</div>
+      <div class="text-xl font-medium text-cream/80">
+        {brand.hours.daysLabel}
+      </div>
+      <div class="text-[17px] text-cream/65">{brand.hours.text}</div>
+    </Card>
+  </div>
+</section>

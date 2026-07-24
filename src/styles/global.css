@@ -1,0 +1,98 @@
+/* Self-hosted fonts. Replaces the design's fonts.googleapis.com request (PRD §3, §7).
+   Only the weights actually used in Khor.dc.html are imported.
+   Reem Kufi and the Arabic Tajawal subsets carry all Arabic copy; Tajawal latin exists
+   only for the inherited "SR" price suffix. */
+@import "@fontsource/reem-kufi/arabic-500.css";
+@import "@fontsource/reem-kufi/arabic-700.css";
+@import "@fontsource/tajawal/arabic-300.css";
+@import "@fontsource/tajawal/arabic-400.css";
+@import "@fontsource/tajawal/arabic-500.css";
+@import "@fontsource/tajawal/arabic-700.css";
+@import "@fontsource/tajawal/arabic-800.css";
+@import "@fontsource/tajawal/latin-400.css";
+@import "@fontsource/tajawal/latin-500.css";
+@import "@fontsource/jost/latin-400.css";
+@import "@fontsource/jost/latin-500.css";
+@import "@fontsource/cormorant-garamond/latin-700.css";
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #3b4526;
+  --color-bg-deep: #2f3620;
+  --color-cream: #f6e2cf;
+  --color-oxblood: #7c1f1a;
+  --color-highlight: #f6c9b0;
+
+  /* Cream at fixed alphas — the design reuses exactly these four. */
+  --color-surface: rgb(246 226 207 / 0.06);
+  --color-hairline: rgb(246 226 207 / 0.1);
+  --color-edge: rgb(246 226 207 / 0.14);
+  --color-rule: rgb(246 226 207 / 0.18);
+
+  --font-kufi: "Reem Kufi", sans-serif;
+  --font-ar: "Tajawal", sans-serif;
+  --font-lat: "Jost", sans-serif;
+  --font-display: "Cormorant Garamond", serif;
+
+  --shadow-card: 0 4px 16px rgb(0 0 0 / 0.22);
+  --shadow-card-hover: 0 16px 40px rgb(0 0 0 / 0.4);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg-deep);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background: var(--color-oxblood);
+    color: var(--color-cream);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* The surface shared by every locations / contact / socials tile. */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-edge);
+    border-radius: 16px;
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Only applied when the card is a link — the hours card is static and has no hover. */
+  .card-link {
+    transition:
+      transform 200ms,
+      box-shadow 200ms;
+  }
+
+  @media (hover: hover) {
+    .card-link:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card-hover);
+    }
+  }
+}

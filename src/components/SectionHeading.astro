@@ -1,0 +1,30 @@
+---
+// Latin kicker + Arabic heading. Used by Menu, Locations, Contact and Socials.
+// The design sets the menu heading at 48px and the other three at 44px.
+interface Props {
+  kicker: string;
+  title: string;
+  large?: boolean;
+}
+
+const { kicker, title, large = false } = Astro.props;
+---
+
+<div class="text-center">
+  <div
+    class="font-lat text-[13px] tracking-[5px] text-cream/55 uppercase"
+    dir="ltr"
+  >
+    {kicker}
+  </div>
+  <h2
+    class:list={[
+      "mt-1.5 font-ar font-extrabold",
+      large
+        ? "text-[clamp(34px,8vw,48px)]"
+        : "text-[clamp(32px,7.5vw,44px)]",
+    ]}
+  >
+    {title}
+  </h2>
+</div>

@@ -1,0 +1,33 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import Card from "./Card.astro";
+import IconTile from "./IconTile.astro";
+import Icon from "./Icon.astro";
+import brand from "../config/brand.json";
+---
+
+<section
+  id="socials"
+  class="mx-auto max-w-[900px] scroll-mt-[76px] px-5 pt-14 pb-5 sm:px-7 sm:pt-[88px]"
+>
+  <div class="mb-8 sm:mb-10">
+    <SectionHeading kicker="Socials" title="تابعنا" />
+  </div>
+
+  <div class="flex justify-center">
+    <Card
+      href={`https://instagram.com/${brand.instagram}`}
+      class="flex items-center gap-4 px-7 py-6 sm:gap-[18px] sm:px-10 sm:py-[26px]"
+    >
+      <IconTile size={50} radius={14}>
+        <Icon name="instagram" size={26} />
+      </IconTile>
+      <div>
+        <div class="font-ar text-xl font-bold">إنستقرام</div>
+        <div class="font-lat text-xl text-highlight" dir="ltr">
+          @{brand.instagram}
+        </div>
+      </div>
+    </Card>
+  </div>
+</section>

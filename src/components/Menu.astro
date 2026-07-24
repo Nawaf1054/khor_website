@@ -1,0 +1,87 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import menu from "../config/menu.json";
+---
+
+<section
+  id="menu"
+  class="mx-auto max-w-[900px] scroll-mt-[76px] px-5 pt-16 pb-6 sm:px-7 sm:pt-24 sm:pb-10"
+>
+  <SectionHeading kicker="Menu" title="القائمة" large />
+</section>
+
+{
+  menu.sections.map((section) => (
+    <section class="mx-auto max-w-[900px] px-5 py-6 sm:px-7 sm:py-10">
+      <div class="mb-2 flex items-baseline gap-3 border-b-2 border-rule pb-3.5 sm:gap-4">
+        <h3
+          class="cat-en m-0 shrink-0 font-display font-bold tracking-[1px] whitespace-nowrap"
+          dir="ltr"
+        >
+          {section.en}
+        </h3>
+        <span class="cat-ar font-ar font-light text-cream/70">{section.ar}</span>
+      </div>
+
+      {section.items.map((item) => (
+        <div class="flex items-center justify-between gap-4 border-b border-hairline px-1 py-[17px] sm:gap-5">
+          <div class="flex items-baseline gap-2.5 whitespace-nowrap">
+            {"prices" in item ? (
+              <span class="inline-flex gap-[18px]">
+                {item.prices.map((p) => (
+                  <span class="text-center">
+                    <span class="block font-lat text-[11px] tracking-[1.5px] text-cream/50 uppercase">
+                      {p.label}
+                    </span>
+                    <span class="price font-lat font-medium">{p.value}</span>
+                    <span class="text-[11px] text-cream/55">{menu.currency}</span>
+                  </span>
+                ))}
+              </span>
+            ) : (
+              <span>
+                <span class="price font-lat font-medium">{item.price}</span>
+                <span class="ms-0.5 text-[11px] text-cream/55">
+                  {menu.currency}
+                </span>
+              </span>
+            )}
+          </div>
+
+          <div class="min-w-0 text-end">
+            <div class="item-ar font-ar font-bold">{item.ar}</div>
+            <div class="item-en font-lat text-cream/62" dir="ltr">
+              {item.en}
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+  ))
+}
+
+<style>
+  /* Fluid equivalents of the design's fixed desktop sizes. */
+  .cat-en {
+    font-size: clamp(26px, 7vw, 46px);
+    line-height: 1;
+  }
+
+  .cat-ar {
+    font-size: clamp(17px, 4.5vw, 26px);
+  }
+
+  .price {
+    font-size: clamp(18px, 4.5vw, 22px);
+  }
+
+  .item-ar {
+    font-size: clamp(17px, 4.2vw, 21px);
+    line-height: 1.25;
+  }
+
+  .item-en {
+    font-size: clamp(13px, 3.4vw, 15px);
+    line-height: 1.2;
+  }
+</style>

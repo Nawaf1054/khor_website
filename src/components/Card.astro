@@ -1,0 +1,21 @@
+---
+// Shared tile surface for the locations / contact / socials sections.
+// Renders as <a> when given an href, otherwise a plain <div> — the hours card is the
+// only static one, and the design correctly gives it no hover treatment.
+interface Props {
+  href?: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const Tag = href ? "a" : "div";
+const isExternal = href?.startsWith("http");
+---
+
+<Tag
+  class:list={["card", href && "card-link", className]}
+  {...href ? { href } : {}}
+  {...isExternal ? { target: "_blank", rel: "noopener" } : {}}
+>
+  <slot />
+</Tag>

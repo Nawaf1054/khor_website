@@ -1,0 +1,20 @@
+{
+  "name": "خور",
+  "nameLatin": "KHOR",
+  "tagline": "قهوة مابين الصخور",
+  "description": "خور — قهوة مابين الصخور. مقهى مختص يقدم القهوة المختصة والفطور، يومياً من ٦:٠٠ صباحاً حتى ١:٣٠ بعد منتصف الليل.",
+  "phone": "0552191088",
+  "phoneDisplay": "055 219 1088",
+  "whatsapp": "966552191088",
+  "instagram": "khor.cafe",
+  "branchLabel": "فرع خور",
+  "branchHint": "اضغط لفتح الموقع على خرائط قوقل والحصول على الاتجاهات.",
+  "mapUrl": "https://maps.app.goo.gl/obQsaKx7hH2EENm27",
+  "hours": {
+    "daysLabel": "يومياً",
+    "text": "من ٦:٠٠ صباحاً حتى ١:٣٠ بعد منتصف الليل",
+    "opens": "06:00",
+    "closes": "01:30"
+  },
+  "copyright": "© 2026 KHOR CAFE"
+}

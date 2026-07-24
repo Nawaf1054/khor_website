@@ -1,23 +1,110 @@
-<!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import { getImage } from "astro:assets";
+import "../styles/global.css";
+import logo from "../assets/khor-logo.png";
+import brand from "../config/brand.json";
+import menu from "../config/menu.json";
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+// Derived sizes rather than the 816px source — referencing logo.src directly would ship
+// the full 148 KB original just to serve a favicon.
+const favicon = await getImage({ src: logo, width: 64, height: 64, format: "png" });
+const touchIcon = await getImage({ src: logo, width: 180, height: 180, format: "png" });
+const og = await getImage({ src: logo, width: 600, height: 600, format: "png" });
+
+const title = `${brand.name} · ${brand.tagline}`;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : undefined;
+const ogImage = Astro.site ? new URL(og.src, Astro.site).href : og.src;
+
+const days = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
+// Built from the same configs the page renders from, so the two can never drift (PRD §8).
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CafeOrCoffeeShop",
+  name: brand.name,
+  alternateName: brand.nameLatin,
+  description: brand.description,
+  slogan: brand.tagline,
+  telephone: `+${brand.whatsapp}`,
+  priceRange: "$$",
+  servesCuisine: "قهوة",
+  image: ogImage,
+  hasMap: brand.mapUrl,
+  sameAs: [`https://instagram.com/${brand.instagram}`],
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: days,
+      opens: brand.hours.opens,
+      closes: brand.hours.closes,
+    },
+  ],
+  hasMenu: {
+    "@type": "Menu",
+    hasMenuSection: menu.sections.map((section) => ({
+      "@type": "MenuSection",
+      name: section.ar,
+      alternateName: section.en,
+      hasMenuItem: section.items.map((item) => {
+        const offers = "prices" in item ? item.prices : [{ value: item.price }];
+        return {
+          "@type": "MenuItem",
+          name: item.ar,
+          alternateName: item.en,
+          offers: offers.map((p) => ({
+            "@type": "Offer",
+            price: p.value,
+            priceCurrency: "SAR",
+            ...("label" in p && p.label ? { name: p.label } : {}),
+          })),
+        };
+      }),
+    })),
+  },
+};
+---
+
+<!doctype html>
+<html dir="rtl" lang="ar">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={brand.description} />
+    <meta name="theme-color" content="#2f3620" />
+    {canonical && <link rel="canonical" href={canonical} />}
+
+    <link rel="icon" type="image/png" href={favicon.src} />
+    <link rel="apple-touch-icon" href={touchIcon.src} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ar_SA" />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={brand.description} />
+    <meta property="og:image" content={ogImage} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(jsonLd)}
+      is:inline
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
