@@ -4,6 +4,22 @@ import Card from "./Card.astro";
 import IconTile from "./IconTile.astro";
 import Icon from "./Icon.astro";
 import brand from "../config/brand.json";
+
+// Instagram stays first so it keeps its original position at the start (right) in RTL.
+const channels = [
+  {
+    href: `https://instagram.com/${brand.instagram}`,
+    icon: "instagram" as const,
+    label: "إنستقرام",
+    handle: brand.instagram,
+  },
+  {
+    href: `https://www.tiktok.com/@${brand.tiktok}`,
+    icon: "tiktok" as const,
+    label: "تيك توك",
+    handle: brand.tiktok,
+  },
+];
 ---
 
 <section
@@ -14,20 +30,27 @@ import brand from "../config/brand.json";
     <SectionHeading kicker="Socials" title="تابعنا" />
   </div>
 
-  <div class="flex justify-center">
-    <Card
-      href={`https://instagram.com/${brand.instagram}`}
-      class="flex items-center gap-4 px-7 py-6 sm:gap-[18px] sm:px-10 sm:py-[26px]"
-    >
-      <IconTile size={50} radius={14}>
-        <Icon name="instagram" size={26} />
-      </IconTile>
-      <div>
-        <div class="font-ar text-xl font-bold">إنستقرام</div>
-        <div class="font-lat text-xl text-highlight" dir="ltr">
-          @{brand.instagram}
-        </div>
-      </div>
-    </Card>
+  <!-- max-w keeps the pair compact and centred rather than stretching the full 900px,
+       preserving the design's treatment of this section. Grid, not flex, so both cards
+       are equal width despite the handles differing in length. -->
+  <div class="mx-auto grid max-w-[620px] gap-5 sm:grid-cols-2">
+    {
+      channels.map(({ href, icon, label, handle }) => (
+        <Card
+          href={href}
+          class="flex items-center gap-4 px-7 py-6 sm:gap-[18px] sm:px-10 sm:py-[26px]"
+        >
+          <IconTile size={50} radius={14}>
+            <Icon name={icon} size={26} />
+          </IconTile>
+          <div class="min-w-0">
+            <div class="font-ar text-xl font-bold">{label}</div>
+            <div class="font-lat text-xl text-highlight" dir="ltr">
+              @{handle}
+            </div>
+          </div>
+        </Card>
+      ))
+    }
   </div>
 </section>
