@@ -59,7 +59,9 @@ const jsonLd = {
       name: section.ar,
       alternateName: section.en,
       hasMenuItem: section.items.map((item) => {
-        const offers = "prices" in item ? item.prices : [{ value: item.price }];
+        // Truthiness on `prices`, not `in`: every item carries both keys in the
+        // inferred JSON type (one as `?: undefined`), so `in` narrows nothing.
+        const offers = item.prices ? item.prices : [{ value: item.price }];
         return {
           "@type": "MenuItem",
           name: item.ar,

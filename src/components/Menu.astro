@@ -26,7 +26,7 @@ import menu from "../config/menu.json";
       {section.items.map((item) => (
         <div class="flex items-center justify-between gap-4 border-b border-hairline px-1 py-[17px] sm:gap-5">
           <div class="flex items-baseline gap-2.5 whitespace-nowrap">
-            {"prices" in item ? (
+            {item.prices ? (
               <span class="inline-flex gap-[18px]">
                 {item.prices.map((p) => (
                   <span class="text-center">
